@@ -53,22 +53,6 @@ def done_message():
     button_close.pack(pady=10)
 
 
-def text_log(filename, content):
-    try:
-        with open(filename, 'w') as f:
-            f.write(content)
-        print(f"File '{filename}' created successfully")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-
-filename = "Cache Simulation Log File.txt"
-content = "test"  # snapshot goes here
-
-
-# text_log(filename, content)
-
-
 def show_snapshot():
     popup_snap = tk.Toplevel()
     popup_snap.geometry("400x250")
@@ -76,12 +60,24 @@ def show_snapshot():
     popup_snap.config(bg='light gray')
     msg = tk.Label(popup_snap, text='*SNAPSHOT GOES HERE*', bg='light gray')
     msg.pack(padx=20, pady=20)
-    button_print = tk.Button(popup_snap, text='Print', command=text_log(filename, content))
+    button_print = tk.Button(popup_snap, text='Print', command=print_clicked)
     button_print.configure(bg='green', fg='white')
     button_print.pack(padx=20, pady=20)
     button_close = tk.Button(popup_snap, text='Close', command=popup_snap.destroy)
     button_close.configure(bg='green', fg='white')
     button_close.pack(padx=20, pady=50)
+
+
+def text_log(text, filename):
+    with open(filename, "w") as f:
+        f.write(text)
+
+
+def print_clicked():
+    text = "test"
+    filename = "test.txt"
+    text_log(text, filename)
+    print(f"Text file created: {filename}")
 
 
 def show_statistics():
@@ -94,7 +90,6 @@ def show_statistics():
     button_close = tk.Button(popup_stat, text='Close', command=popup_stat.destroy)
     button_close.configure(bg='green', fg='white')
     button_close.pack(padx=20, pady=50)
-    # add option to write out a txt file
 
 
 SimulateButton = tk.Button(root, width=10, text="Simulate!", font='Arial 14 bold', command=done_message)
