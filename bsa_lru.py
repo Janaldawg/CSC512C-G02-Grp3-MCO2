@@ -13,6 +13,17 @@ class TableUpdater:
       for _ in range(4)  # There are 4 sets in total
     ]
     self.set_counters = [None, None, None, None, None, None, None, None]
+
+    # self.sets = [
+    #   # Using nested list comprehension to create each set with default values
+    #   [{"value": None, "counter": None} for _ in range(2)]  # Each set contains 8 blocks
+    #   for _ in range(2)  # There are 4 sets in total
+    # ]
+    # self.set_counters = [None, None]
+
+    # Miss and Hit counters
+    self.miss_counter = 0
+    self.hit_counter = 0
     
     # Create a Treeview widget
     self.tree = ttk.Treeview(master, columns=("Block1", "Block2", "Block3", "Block4", "Block5", "Block6", "Block7", "Block8"))
@@ -27,7 +38,18 @@ class TableUpdater:
     self.tree.heading("Block8", text="Block 8")
     self.tree.pack(fill="both", expand=True)
 
-    # Set column options to wrap content
+    self.hit_miss_table = ttk.Treeview(master, columns=("Value", "Hit", "Miss", "Set"))
+    self.hit_miss_table.heading("Value", text="Value")
+    self.hit_miss_table.heading("Hit", text="# of Hit")
+    self.hit_miss_table.heading("Miss", text="# of Miss")
+    self.hit_miss_table.heading("Set", text="Set")
+    self.hit_miss_table.pack(fill="none")
+
+    # Set hit_miss_table width
+    for column in self.hit_miss_table["columns"]:
+      self.hit_miss_table.column(column, stretch=False, width=70)
+
+    # Set column options to fixed width
     for column in self.tree["columns"]:
       self.tree.column(column, stretch=False, minwidth=0, width=70)
 
@@ -47,6 +69,8 @@ class TableUpdater:
     # Current index in the array
     self.current_index = 0
 
+    # self.final_array = [1, 7, 5, 0, 2, 1, 5]
+
     # Print initial table
     self.print_table()
   
@@ -65,6 +89,9 @@ class TableUpdater:
 
       if block["value"] is None:
         print("Running here in if")
+
+        self.check_if_value_exists(new_value, set_data)  
+
         block["value"] = new_value
         if block["counter"] is None and self.set_counters[set_num] is None:
           self.set_counters[set_num] = 0
@@ -80,6 +107,8 @@ class TableUpdater:
         if self.is_block_full(self.sets[set_num]):
           print("Set Data in else: ", set_data)
           print("Block is full")
+
+          self.check_if_value_exists(new_value, set_data)
 
           lowest_counter, lowest_counter_index = self.get_lowest_counter(self.sets[set_num])
 
@@ -98,7 +127,18 @@ class TableUpdater:
     
     # Print the updated table
     self.print_table()
+    self.update_hit_miss_table(new_value, set_num)
     print("-------------------")
+
+  def check_if_value_exists(self, value, set):
+    # Check if the value exists
+    value_exists = any(entry['value'] == value for entry in set)
+
+    # Print the result
+    if value_exists:
+      self.hit_counter += 1
+    else:
+      self.miss_counter += 1
 
   def is_block_full(self, set):
     for block in set:
@@ -130,12 +170,20 @@ class TableUpdater:
   def print_table(self):
     for i, set_data in enumerate(self.sets):
       set_text = f"Set {i}"
-      age_text = f"Age {i}"
+      age_text = f"Set {i} Age"
       values = [block["value"] for block in set_data]
       counters = [block["counter"] for block in set_data]
       self.tree.insert("", "end", text=set_text, values=values)
       self.tree.insert("", "end", text=age_text, values=counters)
 
+  def update_hit_miss_table(self, value, set_num):
+    # Clear existing table data
+    for item in self.hit_miss_table.get_children():
+      self.hit_miss_table.delete(item)
+    
+    # Insert new data into the table
+    self.hit_miss_table.insert("", "end", text="", values=(value, self.hit_counter, self.miss_counter, set_num))
+    
   def update_table_with_array(self):
     # Get the current value from the array
     value = self.final_array[self.current_index]
