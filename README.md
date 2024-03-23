@@ -1,6 +1,6 @@
 ## Cache Table Updater
 
-The Cache Table Updater is a Python application built using the Tkinter library for GUI development. It allows users to visualize and analyze cache behavior with different access patterns using an 8-way set-associative cache.
+The Cache Table Updater is a Python application built using the Tkinter library for GUI development. It allows users to visualize and analyze cache behavior with different access patterns using an 8-way Block Set-Associative cache with LRU(Least Recently Used).
 
 ### Features
 
