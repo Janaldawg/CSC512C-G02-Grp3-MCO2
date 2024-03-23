@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
+from bsa_lru import *
 
 root = tk.Tk()
 
-root.geometry("400x450")
+root.geometry("400x500")
 root.configure(bg='light gray')
 root.title("CACHE SIMULATION PROJECT")
 
@@ -94,14 +95,18 @@ def show_statistics():
 
 SimulateButton = tk.Button(root, width=10, text="Simulate!", font='Arial 14 bold', command=done_message)
 SimulateButton.grid(row=5, columnspan=5, pady=20)
-SimulateButton.configure(bg='green', fg='white')
+SimulateButton.configure(bg='green', fg='black')
 
 ResultButton = tk.Button(root, width=20, text="Cache Memory Snapshot", font='Arial 14 bold', command=show_snapshot)
 ResultButton.grid(row=6, columnspan=5, pady=20)
-ResultButton.configure(bg='green', fg='white')
+ResultButton.configure(bg='green', fg='black')
 
 StatButton = tk.Button(root, width=20, text="Cache Memory Statistics", font='Arial 14 bold', command=show_statistics)
 StatButton.grid(row=7, columnspan=5, pady=20)
-StatButton.configure(bg='green', fg='white')
+StatButton.configure(bg='green', fg='black')
+
+TableButton = tk.Button(root, width=20, text="Table Updater", font='Arial 14 bold', command=main)
+TableButton.grid(row=8, columnspan=5, pady=20)
+TableButton.configure(bg='green', fg='black')
 
 root.mainloop()
