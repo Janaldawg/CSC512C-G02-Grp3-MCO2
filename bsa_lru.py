@@ -230,6 +230,16 @@ class TableUpdater:
       self.tree.insert("", "end", text=set_text, values=values)
       self.tree.insert("", "end", text=age_text, values=counters)
 
+    with open("table_result.txt", "w") as f:
+      f.write("Set, Block1, Block2, Block3, Block4, Block5, Block6, Block7, Block8\n")
+      for i, set_data in enumerate(self.sets):
+        set_text = f"Set {i}"
+        age_text = f"Set {i} Age"
+        values = [block["value"] for block in set_data]
+        counters = [block["counter"] for block in set_data]
+        f.write(f"{set_text}: {values}\n")
+        f.write(f"{age_text}: {counters}\n")
+
   def update_hit_miss_table(self, value, set_num):
     # Clear existing table data
     for item in self.hit_miss_table.get_children():
