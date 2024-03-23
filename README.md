@@ -13,10 +13,41 @@ The Cache Table Updater is a Python application built using the Tkinter library 
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
 
    ```bash
    git clone https://github.com/your_username/cache-table-updater.git
+
+2. **Navigate to the project directory:**
+
+    ```bash
+    cd cache-table-updater
+    ```
+
+### Usage
+
+1. **Run the application:**
+
+    ```bash
+    python cache_table_updater.py
+    ```
+
+2. Choose the number of blocks and select a sequence type (sequential, random, or mid-repeat blocks).
+3. Click the "Update Table" button to simulate cache access based on the selected sequence.
+4. Analyze cache hits, misses, hit rate, miss rate, and other performance metrics displayed in the GUI.
+
+## Contributors
+
+- John Rick Fabiala
+- Jan Aldo Hontiveros
+
+## Issues
+
+Please report any issues or bugs [here]https://github.com/Janaldawg/CSC512C-G02-Grp3-MCO2.
+
+## Acknowledgements
+
+Special thanks to the Tkinter community and the contributors of the libraries used in this project.
 
 
 # CSC512C-G02-Grp3-MCO2
